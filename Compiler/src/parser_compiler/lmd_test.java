@@ -24,8 +24,8 @@ public class lmd_test {
         token_stream=(in.nextLine()+" $").trim().split(" ");   // $ is inserted as the end token
         // Building the Parse Table
         pc=new Parser_compatible();
-        System.out.println("\n\n\n      Left most derivation sequence : ");
-        System.out.println("..........................................................\n\n");
+        System.out.println("\n\n\n          LMD stack content : ");
+        System.out.println("..............................................\n\n");
         // Initialise the stack
         e_stack.push("$");
         e_stack.push(pc.first_rule);
@@ -39,7 +39,7 @@ public class lmd_test {
                         rule_token=pc.parse_Table.get(e_stack.pop(),token_stream[i]).right;
                     }
                     catch(NullPointerException ne ){
-                    System.out.println("Error !\nThere is no entry in parse table for the current context !!!\n");
+                    System.out.println("\n\nError !\nThere is no entry in parse table for the current context !!!\n");
                     System.exit(-1);
                     }
                     if(!rule_token.equals("empty")) {
@@ -53,18 +53,18 @@ public class lmd_test {
                     if(e_stack.peek().equals(token_stream[i]))
                         e_stack.pop();
                     else {
-                        System.out.println("Error ! Something is wrong !!!\n");
+                        System.out.println("\n\nError ! Something is wrong !!!\n");
                         System.exit(-2);
                     }
                 }
         }
             else {
-                System.out.println("Error ! Stack empty !\n");
+                System.out.println("\n\nError ! Stack empty !\n");
                 System.exit(-3);
             }
         }
         if(e_stack.isEmpty())
-            System.out.println("Expression is correct syntactically !!\n\n");
+            System.out.println("\n\nExpression is correct syntactically !!\n\n");
         else
             System.out.println("Error !");
     }
