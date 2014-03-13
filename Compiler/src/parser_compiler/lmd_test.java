@@ -22,24 +22,31 @@ public class lmd_test {
         // Taking input
         System.out.print("Enter the token stream : ");
         token_stream=(in.nextLine()+" $").trim().split(" ");   // $ is inserted as the end token
-        System.out.println("No of tokens : "+token_stream.length);
         // Building the Parse Table
         pc=new Parser_compatible();
+        System.out.println("\n\n\n      Left most derivation sequence : ");
+        System.out.println("..........................................................\n\n");
         // Initialise the stack
         e_stack.push("$");
         e_stack.push(pc.first_rule);
         // Evaluate
         for(int i=0;i<token_stream.length;i++){
+            System.out.println(e_stack);
             if(!e_stack.isEmpty()) {
                 if(!pc.isTerminal(e_stack.peek())){
-                String rule_token=pc.parse_Table.get(e_stack.pop(),token_stream[i]).right;
-                if(rule_token==null){
-                    System.out.println("Error ! Something is wrong !!!\n");
+                String rule_token=null;
+                    try{
+                        rule_token=pc.parse_Table.get(e_stack.pop(),token_stream[i]).right;
+                    }
+                    catch(NullPointerException ne ){
+                    System.out.println("Error !\nThere is no entry in parse table for the current context !!!\n");
                     System.exit(-1);
-                }
-                String to_put[]=rule_token.split(" ");
-                for(int j=to_put.length-1;j>=0;j--)
-                    e_stack.push(to_put[j]);
+                    }
+                    if(!rule_token.equals("empty")) {
+                        String to_put[]=rule_token.split(" ");
+                        for(int j=to_put.length-1;j>=0;j--)
+                            e_stack.push(to_put[j]);
+                        }
                     i--;
             }
             else {
