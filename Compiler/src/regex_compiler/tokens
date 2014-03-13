@@ -1,0 +1,4 @@
+keyword -> if|else|int|return|void|struct|malloc|for|while|include
+ID -> [A-Za-z][A-Za-z]*
+NUM -> <digit><digit>*
+special -> \+|-|/|;|=|{|}|\(|\)|\<|>|\*|#|.|,|"|!|%|&|\|

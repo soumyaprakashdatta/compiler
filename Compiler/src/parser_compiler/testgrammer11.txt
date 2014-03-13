@@ -1,0 +1,4 @@
+C-> A
+A-> B c | empty
+B-> f | empty
+A-> d
