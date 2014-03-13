@@ -1,6 +1,3 @@
-/compiler_main
 /parser_compiler
+/compiler_main
 /regex_compiler
-/terminals
-/testfile2.c
-/tokens

@@ -26,7 +26,7 @@ public class lmd_test {
         pc=new Parser_compatible();
         System.out.println("\n\n\n          LMD stack content : ");
         System.out.println("..............................................\n\n");
-        // Initialise the stack
+        // Initialize the stack
         e_stack.push("$");
         e_stack.push(pc.first_rule);
         // Evaluate
