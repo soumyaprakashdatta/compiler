@@ -24,7 +24,7 @@ public class lrRemove {
             addParseRuleToMap(parts[0],parseRules.get(parts[0].trim())+" | "+parts[1]);
             //add to hash map...
             if(start_symbol_flag){
-                start_symbol=parts[0];
+                start_symbol=parts[0].trim();
                 start_symbol_flag=false;
             }
 
@@ -189,8 +189,8 @@ public class lrRemove {
         file_name=in.next();
 
         try {
-            p.readRules(new File("C:\\codezone\\java\\Compiler\\src\\parser_compiler\\"+file_name));
-            System.out.println("\nReading grammar !!");
+            p.readRules(new File("C:\\Users\\Creative Devil\\git\\Compiler\\Compiler\\src\\parser_compiler\\"+file_name));
+            System.out.println("\n\n\nReading grammar !!");
             for(String i:lrRemove.parseRules.keySet()){
                 ParseRule pr=lrRemove.parseRules.get(i);
                 System.out.print(pr.name+" -> ");
@@ -201,7 +201,7 @@ public class lrRemove {
             System.exit(-1);
         }
         p.removeLeftRecursion();
-        System.out.println("Grammer after removing left recursion !!");
+        System.out.println("\n\n\nGrammer after removing left recursion !!");
         for(String i:lrRemove.parseRules.keySet()){
             ParseRule pr=lrRemove.parseRules.get(i);
             System.out.print(pr.name+" -> ");

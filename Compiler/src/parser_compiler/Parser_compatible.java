@@ -43,7 +43,7 @@ public class Parser_compatible {
             formula f=new formula(arguments[0],arguments[1]);
             rules.put(f.left,f);
             if(i==0)
-                first_rule=new String(f.left);
+                first_rule=new String(f.left).trim();
         }
     }
 
@@ -54,6 +54,7 @@ public class Parser_compatible {
     }
 
     private static void createFirst(String A){
+        A=A.trim();
         if(first_list.get(A)==null)
         {
             formula f=rules.get(A);
@@ -128,6 +129,7 @@ public class Parser_compatible {
     }
 
     private static void createFollow(String A){
+        A=A.trim();
         if(follow_list.get(A)==null){
 
             // add $ to the start symbol
