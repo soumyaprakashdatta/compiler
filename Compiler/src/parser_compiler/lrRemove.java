@@ -190,7 +190,9 @@ public class lrRemove {
 
         try {
             p.readRules(new File("C:\\Users\\Creative Devil\\git\\Compiler\\Compiler\\src\\parser_compiler\\"+file_name));
-            System.out.println("\n\n\nReading grammar !!");
+            System.out.println("\n\n\nReading grammar !!\n\n");
+            System.out.println("            Grammar :");
+            System.out.println(".................................\n\n");
             for(String i:lrRemove.parseRules.keySet()){
                 ParseRule pr=lrRemove.parseRules.get(i);
                 System.out.print(pr.name+" -> ");
@@ -201,7 +203,8 @@ public class lrRemove {
             System.exit(-1);
         }
         p.removeLeftRecursion();
-        System.out.println("\n\n\nGrammer after removing left recursion !!");
+        System.out.println("\n\n\n      Grammar after removing left recursion !!");
+        System.out.println(".................................................................\n\n");
         for(String i:lrRemove.parseRules.keySet()){
             ParseRule pr=lrRemove.parseRules.get(i);
             System.out.print(pr.name+" -> ");

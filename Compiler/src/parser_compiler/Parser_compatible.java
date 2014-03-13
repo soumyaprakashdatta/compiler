@@ -1,4 +1,5 @@
 package parser_compiler;
+
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
@@ -289,15 +290,16 @@ public class Parser_compatible {
 
     static void print_first_list(){
         int entry_num=first_list.size();
-        System.out.println("\n......................................");
-        System.out.println("\t\tFirst set");
-        System.out.println("......................................\n");
+        System.out.println("\n");
+        System.out.println("\t\t\t\t\t\t....................................\n");
+        System.out.println("\t\t\t\t\t\t\t|\t\tFirst list\t\t|\n");
+        System.out.println("\t\t\t\t\t\t....................................\n\n");
         System.out.println("First list has "+entry_num+" entries .\n");
         if(entry_num>0){
-            System.out.println("Name\t\t\t\tEntry");
-            System.out.println(".....................................................");
+            System.out.println("\t\t\tName\t\t\t\t\t\t\t\tEntry");
+            System.out.println("\t..........................................................................");
             for(String key:first_list.keySet()){
-                System.out.print(key+"\t\t\t\t\t");
+                System.out.printf("\t\t%-40s",key);
                 String first=first_list.get(key);
                 String tokens[]=first.split(" ");
                 for(int i=0;i<tokens.length;i++){
@@ -312,15 +314,16 @@ public class Parser_compatible {
 
     static void print_follow_list(){
         int entry_num=follow_list.size();
-        System.out.println("\n......................................");
-        System.out.println("\t\tFollow set");
-        System.out.println("......................................\n");
+        System.out.println("\n");
+        System.out.println("\t\t\t\t\t\t....................................\n");
+        System.out.println("\t\t\t\t\t\t\t|\t\tFollow list\t\t|\n");
+        System.out.println("\t\t\t\t\t\t....................................\n\n");
         System.out.println("Follow list has "+entry_num+" entries .\n");
         if(entry_num>0){
-            System.out.println("Name\t\t\t\tEntry");
-            System.out.println("........................................................");
+            System.out.println("\t\t\tName\t\t\t\t\t\t\t\tEntry");
+            System.out.println("\t..........................................................................");
             for(String key:follow_list.keySet()){
-                System.out.print(key+"\t\t\t\t\t");
+                System.out.printf("\t\t%-40s",key);
                 String follow=follow_list.get(key);
                 String tokens[]=follow.split(" ");
                 for(int i=0;i<tokens.length;i++){
@@ -338,15 +341,15 @@ public class Parser_compatible {
 
     static void printParseTable(){
         System.out.println("\n");
-        System.out.println("....................................");
-        System.out.println("\t\tParse Table");
-        System.out.println("....................................");
-        System.out.println("\nNon-terminal\t\tTerminal\t\tFormula");
-        System.out.println("........................................................................................");
+        System.out.println("\t\t\t\t\t\t....................................\n");
+        System.out.println("\t\t\t\t\t\t\t|\t\tParse Table\t\t|\n");
+        System.out.println("\t\t\t\t\t\t....................................\n\n");
+        System.out.println("\n\t\tNon-terminal\t\t\t\t\tTerminal\t\t\t\t\tFormula");
+        System.out.println("...............................................................................................................");
         for(String rowKey:parse_Table.rowKeySet()){
             for(String colKey:parse_Table.columnKeySet()){
                 if(parse_Table.get(rowKey,colKey)!=null)
-                    System.out.println(rowKey+"\t\t\t"+colKey+"\t\t\t"+parse_Table.get(rowKey,colKey).left+" -> "+parse_Table.get(rowKey,colKey).right);
+                    System.out.printf("\t\t%-35s%-25s%s -> %s\n",rowKey,colKey,parse_Table.get(rowKey,colKey).left,parse_Table.get(rowKey,colKey).right);
             }
         }
     }
