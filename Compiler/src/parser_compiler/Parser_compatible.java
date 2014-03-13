@@ -18,13 +18,17 @@ public class Parser_compatible {
     private static HashMap<String,String> first_list=new HashMap<>();
     private static HashMap<String,String> follow_list=new HashMap<>();
     public static Table<String,String,formula> parse_Table=HashBasedTable.create();
-    private static String first_rule=null;
+    public static String first_rule=null;
 
     public static void main(String[] args) {
         createParseTable();
    }
 
-    private static boolean isTerminal(String token){
+    public Parser_compatible() {
+        createParseTable();
+    }
+
+    public static boolean isTerminal(String token){
         if(rules.get(token)==null)
             return true;
         return false;
