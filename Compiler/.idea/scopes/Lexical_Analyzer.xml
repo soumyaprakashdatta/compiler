@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Lexical Analyzer" pattern="file:src/regex_compiler//*" />
+</component>

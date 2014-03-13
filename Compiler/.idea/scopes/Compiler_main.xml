@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Compiler_main" pattern="file:src/compiler_main//*" />
+</component>
