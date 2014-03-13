@@ -11,11 +11,11 @@ public class LexicalAnalyzer {
 	public static void main(String args[]) throws FileNotFoundException {
 		nfa[0][0][0] = 1;
 		LexicalAnalyzer la = new LexicalAnalyzer();
-	la.createNFAfromspecification(
+	/*la.createNFAfromspecification(
 				new File(
-						"C:\\codezone\\java\\RegexFull\\src\\lexicalanalyzer\\terminals"),
+                        "C:\\Users\\Creative Devil\\git\\Compiler\\Compiler\\src\\terminals"),
 				new File(
-						"C:\\codezone\\java\\RegexFull\\src\\lexicalanalyzer\\tokens"));
+						"C:\\Users\\Creative Devil\\git\\Compiler\\Compiler\\src\\tokens"));
 		// la.printNFA();
 		// la.printDFA();
 		for (String tk : la.tokenToNFA.keySet()) {
@@ -30,18 +30,18 @@ public class LexicalAnalyzer {
 		}
 
 		la.lexicalSimulator(new File(
-				"C:\\codezone\\java\\RegexFull\\src\\lexicalanalyzer\\testfile2.c"));
+				"C:\\Users\\Creative Devil\\git\\Compiler\\Compiler\\src\\regex_compiler"));
 
-		/*
+*/
 		  //la.convertToNFA("\\+|-|/|;|=|{|}|\\(|\\)", 1); 
-		la.convertToNFA("(a|b)*a", 1);
+		la.convertToNFA("\\+|-|/|;|=|{|}|\\(|\\)|\\<|>|\\*|#|.|,|\"|!|%|&|\\|", 1);
 		  la.printNFA();
 		  //la.convertToNFA("a|bk*|cd", la.cur_state); //la.printNFA();
 		  la.convertToDFA();
 		  la.printDFA(); 
 		 // la.simulate(new String("+").toCharArray());
-		  la.simulate(new String("aba").toCharArray()); */
-		 
+		  la.simulate(new String("#").toCharArray());
+
 
 	}
 
@@ -186,7 +186,7 @@ public class LexicalAnalyzer {
 			} else if (cur == '\\' && (escape_index!=(i-1)) ) {
 				// escape character...
 			//	i++;
-				// the next character is to be escaped....
+				// the next character is to be escaped...
 				escape_char = regexinput.charAt(i);
 				escape_index = i;// store where the escape was found and what
 									// was it...
@@ -234,13 +234,18 @@ public class LexicalAnalyzer {
 				i++;
 				char range[] = new char[MAX_BUFFER * 2];// for considering
 														// ORs...
+                char cheat[]=new char[MAX_BUFFER];
+                int cheatindex=0;
 				int ind = 0;
 				while (regexinput.charAt(i) != ']'&&i<regexinput.length()) {
 					// TODO assuming for now that the string doesnot end before
 					// ]
+
+
 					if(regexinput.charAt(i)=='\\'){
 						range[ind++]='\\';
 						range[ind++]=regexinput.charAt(i+1);
+                        cheat[cheatindex++]=regexinput.charAt(i+1);
 						range[ind++]='|';
 						i++;
 						//put in escape character...
@@ -257,6 +262,7 @@ public class LexicalAnalyzer {
 						}
 						for (char c = (char) (regexinput.charAt(i - 1) + 1); c <= next_char; c++) {
 							range[ind++] = c;
+                            cheat[cheatindex++]=c;
 							range[ind++] = '|';
 							// what if range is incorrect?
 						}
@@ -283,8 +289,20 @@ public class LexicalAnalyzer {
 				// putting a null at the end...
 				System.out.println("Range exp: "
 						+ String.valueOf(range).substring(0, ind - 1));
-				convertToNFA(String.valueOf(range).substring(0, ind - 1),
-						cur_state);
+                //////////////////////////////change//////////////////////////
+                int in=0;
+                int newstartstate=0,newendstate=0;
+                for(;in<cheatindex;in++){
+                    newstartstate=cur_state;
+                    newendstate=cur_state+1;
+                    nfa[newstartstate][cheat[in]-1][0]=newendstate;
+                }
+                cur_state=cur_state+2;
+                push_info_node(newstartstate,'s','[');
+                push_info_node(newendstate,'e',']');
+                /////////////////////////////////////////////////////////////
+
+			//	convertToNFA(String.valueOf(range).substring(0, ind - 1),cur_state);
 
 			} else if (cur == '?'&&(escape_index!=(i-1))) {
 				if (isAlphabet(regexinput.charAt(i - 1))||escape_index==(i-2)) {
@@ -774,7 +792,7 @@ public class LexicalAnalyzer {
 	}
 
 	private boolean isAlphabet(char x) {
-		if((x!='[')&&(x!=']')&&(x!='(')&&(x!=')')&&(x!='*')&&(x!='+')&&(x!='|')&&(x!='?')&&(x!=terminalSeparatorStart)&&(x!='\\'))
+		if((x!='[')&&(x!=']')&&(x!='(')&&(x!=')')&&(x!='*')&&(x!='+')&&(x!='|')&&(x!='?')&&(x!=terminalSeparatorStart)&&(x!=terminalSeparatorEnd)&&(x!='\\'))
 			return true;
 		else 
 			return false;
